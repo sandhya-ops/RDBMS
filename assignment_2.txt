@@ -1,0 +1,25 @@
+1. Which field of the customer table in primary key?
+Sol
+====
+cust_id
+
+2.What is the 4th column of the customer table?
+Sol
+===
+rating int(4)
+
+3.What is another word for row ? for column?
+Sol
+====
+row also called as opportunity,tuples,entity
+column also known ass attributes,method.
+
+4.Why isn't it possible to see the first five rows of table?
+Sol
+====
+-When you insert into a table whenever the system finds the
+ free space in database server HD , it will store the row there
+-the reason that RDBMS does this is to speed up the insert statement
+-It will always be in ascending order of row address.
+-When you update a row, if the row length is increasing then the entire 
+ row may be moved to some other possible an output.
