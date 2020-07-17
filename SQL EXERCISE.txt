@@ -1,0 +1,203 @@
+1. create the table SEMP with the following structure:
+ EMPNO char(4)
+EMPNAME CHAR(20)
+BASIC FLOAT(9.2)
+DEPTNO CHAR(2)
+DEPTHEAD CHAR(4)
+
+SOL:
+====
+	CREATE TABLE SEMP
+	(
+		EMPNO CHAR(4),
+		EMPNAME CHAR(20),
+		BASIC FLOAT(9.2),
+		DEPTNO CHAR(2),
+		DEPTHEAD CHAR(4)
+	);
+======================================================================
+2. Create the table SDEPT with the following structure:
+	DEPTNO CHAR(2)
+	DEPTNAME CHAR(5)
+
+SOL:
+====
+	CREATE TABLE SDEPT 
+	(
+		DEPTNO CHAR(2),
+		DEPTNAME CHAR(15)
+	);
+======================================================================
+3. INSERT into the SDEPT table the following values:
+	10. Development
+	20. Training
+SOL:
+====
+	INSERT INTO SDEPT VALUES ('10','Development');
+	INSERT INTO SDEPT VALUES ('20','Training');
+======================================================================
+4. INSERT into SEMP table the following :
+SOL:
+====
+	INSERT INTO SEMP(EMPNO, EMPNAME, BASIC, DEPTNO)
+	 VALUES ('0001','SUNIL','6000','10');
+	
+	INSERT INTO SEMP(EMPNO,EMPNAME,BASIC,DEPTNO) 
+	VALUES ('0002','HIREN',8000,'20');
+
+	INSERT INTO SEMP(EMPNO,EMPNAME,BASIC,DEPTNO,DEPTHEAD) 
+	VALUES ('0003','ALI',4000,'10','0001');
+
+	INSERT INTO SEMP(EMPNO,EMPNAME,BASIC,DEPTHEAD) 
+	VALUES ('0004','GEORGE',6000,'0002');
+======================================================================
+5.Create S, P, J, SPJ tables as specified below and insert a few rows in each table:-
+
+SUPPLIER
+(S#, Sname, Status, City)         - S
+
+PARTS
+(P#, Pname, Color, Weight, City)    - P
+
+PROJECTS
+(J#, Jname, City)                   - J
+
+SUPPLIER-PARTS-PROJECT
+(S#, P#, J#, Qty)                  - SPJ
+
+Sample data for S# column:- ‘S1’, ‘S2’, ‘S3’, etc.
+Sample data for P# column:- ‘P1’, ‘P2’, ‘P3’, etc.
+Sample data for J# column:- ‘J1’, ‘J2’, ‘J3’, etc.
+Sample data for Status column:- 10, 20, 30, etc.
+
+SOL
+====
+CREATE TABLE S(
+	`S#` CHAR(4) primary key not null,
+	SNAME VARCHAR(20),
+	Status INT(4),
+	CITY  VARCHAR(20)
+);
+
+CREATE TABLE P(
+	`P#` CHAR(4) primary key not null,
+	Pname VARCHAR(20),
+	Color VARCHAR(15),
+	Weight CHAR(4),
+	CITY VARCHAR(20)
+);
+
+CREATE TABLE J(
+	`J#` CHAR(4) primary key not null,
+	Jname VARCHAR(20),
+	CITY  VARCHAR(20)
+);
+
+CREATE TABLE SPJ(
+	`S#` CHAR(4),
+	`P#` CHAR(4),
+	`J#` CHAR(4),
+	FOREIGN KEY (`S#`) REFERENCES S(`S#`),
+	FOREIGN KEY (`P#`) REFERENCES P(`P#`),
+	FOREIGN KEY (`J#`) REFERENCES J(`J#`),
+	QTY INT
+);
+
+Write the SELECT queries to do the following:- 
+
+5. Display all the data from the S table.
+SOL:
+====
+SELECT * FROM S;
+
+6. Display only the S# and SNAME fields from the S table.
+SOL:
+=====
+SELECT `S#`, SNAME FROM S; 
+
+7. Display the PNAME and COLOR from the P table for the CITY=”London”.
+SOL:
+====
+SELECT PNAME, COLOR FROM P WHERE CITY='London';
+
+8. Display all the Suppliers from London.
+SOL:
+====
+SELECT * FROM S WHERE CITY="London";
+
+9. Display all the Suppliers from Paris or Athens.
+SOL:
+=====
+SELECT * FROM S WHERE CITY="London" OR CITY="Athens"
+
+10. Display all the Projects in Athens.
+SOL:
+====
+SELECT * FROM PROJECT WHERE CITY="Athens";
+
+11. Display all the Partnames with the weight between 12 and 14 (inclusive of both).
+SOL:
+====
+SELECT WEIGHT FROM P WHERE WEIGHT BETWEEN 12 AND 14;
+
+12. Display all the Suppliers with a Status greater than or equal to 20.
+SOL:
+====
+SELECT * FROM S WHERE STATUS >=20;
+
+13. Display all the Suppliers except the Suppliers from London.
+SOL:
+====
+SELECT * FROM S WHERE CITY !="London";
+
+14. Display only the Cities from where the Suppliers come from.
+SOL:
+====
+SELECT CITY FROM S;
+
+15. Assuming that the Part Weight is in GRAMS, display the same in
+MILLIGRAMS and KILOGRAMS. 
+SOL:
+====
+SELECT WEIGHT FROM P;//ARE IN GRAMS
+
+
+================================================================
+data entry in s table:
+INSERT into S(`S#`,Sname,Status,city)values('S1','Sandhya',10,'Sanfrancisco')
+INSERT into S(`S#`,Sname,Status,city)values('S2','Neha',20,'London');
+INSERT into S(`S#`,Sname,Status,city)values('S3','Poonam',30,'Paris');
+INSERT into S(`S#`,Sname,Status,city)values('S4','Ramesh',40,'Athens');
+INSERT into S(`S#`,Sname,Status,city)values('S5','Rishikesh',50,'London');\
+================================================================
+data entry in P table
+INSERT INTO P(`p#`,PNAME,COLOR,WEIGHT,CITY)
+VALUES('P1','OM','ORANGE',300,'JAIPUR');
+INSERT INTO P(`p#`,PNAME,COLOR,WEIGHT,CITY)
+VALUES('P2','SAI','GREEN',400,'CALIFORNIA');
+INSERT INTO P(`p#`,PNAME,COLOR,WEIGHT,CITY)
+VALUES('P3','RAM','SEALIGHT',50,'LA');
+INSERT INTO P(`p#`,PNAME,COLOR,WEIGHT,CITY)
+VALUES('P4','JAY','YELLOW',336,'BOSTON');
+INSERT INTO P(`p#`,PNAME,COLOR,WEIGHT,CITY)
+VALUES('P5','SHANKARAA','BLUE',478,'BERLIN');
+================================================================
+INSERT INTO J(`J#`,JNAME,CITY)
+VALUES('J1','SANDY','SANFRANCISCO');
+INSERT INTO J(`J#`,JNAME,CITY)
+VALUES('J2','SWARUPA','PUNE');
+INSERT INTO J(`J#`,JNAME,CITY)
+VALUES('J3','AISHWARYA','AUNDH');
+INSERT INTO J(`J#`,JNAME,CITY)
+VALUES('J4','SONALI','SATARA');
+INSERT INTO J(`J#`,JNAME,CITY)
+VALUES('J5','PRIYA','HYDERABAD');
+INSERT INTO J(`J#`,JNAME,CITY)
+VALUES('J6','SNEHA','GOA');
+================================================================
+UPDATE P SET PNAME='GEARS', WEIGHT=12 WHERE `P#`='P1';
+UPDATE P SET PNAME='IR SENSOR', WEIGHT=5 WHERE `P#`='P2';
+UPDATE P SET PNAME='RUBBER BELT', WEIGHT=30 WHERE `P#`='P3';
+UPDATE P SET PNAME='NUTS', WEIGHT=16 WHERE `P#`='P4';
+UPDATE P SET PNAME='BOLT', WEIGHT=18 WHERE `P#`='P5';
+================================================================
