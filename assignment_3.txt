@@ -1,0 +1,18 @@
+1. Does ANSI recognize the data type DATE?
+Sol
+====
+ Yes ANSI recognize the data type DATE and the default date format is 'YYYY-MM-DD'.
+The range is (1st JAN 1000AD to 31st DEC 9999AD)
+
+2. Which subdivison of SQL is used to insert values in tables?
+Sol
+====
+Their are  four main subdivision of SQL:
+	1. DDL(Data definition lang )
+	2. DML(Data manipulation lang )
+	3. DCL(Data control lang)
+	4. DQL(Data query lang)
+
+A data manipulation language (DML) is a computer programming language used
+for adding (inserting), deleting, and modifying (updating) data in a database
+hence DML used for inserting values in tables.
