@@ -50,4 +50,4 @@ SOL
 select pname,qty from p,spj where p.`p#`=spj.`p#` and p.weight<15;
 
 11. Display all the Employee names and the name of their Managers.
- 
+ select a.ename, b.ename from emp b,emp a where a.mgr=b.empno;
