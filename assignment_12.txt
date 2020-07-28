@@ -1,0 +1,33 @@
+1) Write a query that selects all customers whose ratings are equal to or greater than
+ANY of Serres’.
+select * from customer where rating >= (select max(rating) from customer);
+
+2) Write a query using ANY or ALL that will find all salespeople who have no
+customers located in their city.
+sol: 
+===
+select s.snum,c.city from customer c,salespeople s where c.snum=s.snum and  c.city!=any(select city from salespeople);
+select s.snum,c.city from customer c,salespeople s where c.snum=s.snum and  c.city!=s.city;
+
+3) Write a query that selects all orders for amounts greater than any for the
+customers in London.
+sol
+===
+select * from orders
+ where amt>any(select amt from orders
+ where cnum= any(select cnum from customer
+ where city ='London'));
+
+4) Write the above query using MIN or MAX. 
+sol
+===
+select * from orders
+ where amt>any(select max(amt) from orders
+ where cnum= any(select cnum from customer
+ where city ='London'));
+select * from orders
+ where amt>any(select min(amt) from orders
+ where cnum= any(select cnum from customer
+ where city ='London'));
+
+
