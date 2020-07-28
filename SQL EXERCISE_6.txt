@@ -38,7 +38,7 @@ select min(basic) from semp;
 of Sales).
 SOL
 ===
-*******
+select sname,qty from s,spj having qty>=avg(qty);  
 
 9. Display the name of the Department with the maximum number of Employees. 
 SOL
