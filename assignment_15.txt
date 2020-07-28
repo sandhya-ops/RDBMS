@@ -1,0 +1,22 @@
+1) Assume there is a table called Multicust, with all of the same column definitions
+as Salespeople. Write a command that inserts all salespeople with more than one
+customer into this table.
+sol
+===
+create table multicust as
+select * from salespeople;
+select sname, customer.snum from customer, salespeople
+ where salespeople.snum=customer.snum group by sname having count(customer.snum)>1;
+
+2) Write a command that deletes all customers with no current orders.
+sol
+===
+delete from customer where cnum<=(select ifnull(cnum,0) from customer where cnum is null);
+error: You can't specify target table 'customer' for update in FROM clause
+---------------------------------------------------------------------------------
+3) Write a command that increases by twenty percent the commissions of all
+salespeople with total orders above Rs. 3,000.
+sol
+===
+select salespeople.sname,sum(orders.amt*0.20) "inc comm" from orders,salespeople
+ where orders.snum=salespeople.snum and amt>3000 group by sname;
