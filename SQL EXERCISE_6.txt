@@ -1,0 +1,46 @@
+1. Display all the Suppliers with the same Status as the supplier, ‘CLARK’.
+SOL
+===
+select sname from s,semp where s.status=semp.status; 
+
+2. Display all the Employees in the same department as the employee ‘MILLER’.
+SOL
+===
+select empname,deptname from semp,sdept where semp.deptno=sdept.deptno;
+
+3. Display all the Parts which have more Weight than all the Red parts.
+SOL
+===
+select pname from p where weight > (select weight from p where color= 'red');
+
+4. Display all the Projects going on in the same city as the project ‘TAPE’.
+SOL
+===
+select jname,city from j where city=(select city from j where jname='tape');
+
+5. Display all the Parts with Weight less than all the Green parts. 
+SOL
+===
+select pname,weight from p where weight < (select weight from p where color='green');
+
+6. Display the name of the Supplier who has sold the maximum Quantity (in one
+sale).
+SOL
+===
+select max(qty) from spj group by qty
+
+7. Display the name of the Employee with the minimum Salary.
+SOL
+===
+select min(basic) from semp;
+
+8. Display the name of the Supplier who has sold the maximum overall Quantity (sum
+of Sales).
+SOL
+===
+*******
+
+9. Display the name of the Department with the maximum number of Employees. 
+SOL
+===
+select deptno, count(*) as c from semp group by deptno order by c desc limit 1;
