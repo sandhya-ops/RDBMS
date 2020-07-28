@@ -1,0 +1,18 @@
+1) Write a query that uses a subquery to obtain all orders for the customer named
+Cisneros. Assume you do not know his customer number (cnum).
+sol
+===
+select * from orders where cnum=(select cnum from customer where cname='cisneros');
+
+2) Write a query that produces the names and ratings of all customers who have
+above-average orders.
+sol
+===
+select cname,rating from customers where cnum=(select cnum from orders where amt>avg(amt));
+
+3) Write a query that selects the total amount in orders for each salesperson for
+whom this total is greater than the amount of the largest order in the table.
+sol
+===
+select sname,sum(amt), sum(amt*comm) "sales_amt"  from orders,salespeople
+ where orders.snum= salespeople.snum group by sname having sum(amt)> max(amt); 
