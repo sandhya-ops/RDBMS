@@ -1,0 +1,112 @@
+1. The CUSTOMER table of a state electricity board consists of the following fields:-
+
+Meter Number Varchar 4
+Meter Type Char 1
+ Previous Reading Int 5
+ Current Reading Int 5
+ Customer Type Char 1
+ Last Bill payment Char 1 (values could be ‘Y’ or ‘N’)
+
+There are two types of meters viz. 3- phase or 1-phase coded as ‘T’ or ‘S’
+respectively. There are 4 types of customers viz. Agricultural Industrial,
+Commercial and Residential with codes ‘A’ , ‘I’, ‘C’ and ‘R’ respectively. 
+
+Formulae:-
+Units used = Current Reading – Previous Reading Rate
+=Rs.1/ 1.25/ 1.50/ 1.30 for A/I/C/R respectively.
+Amount = rate*units used
+Surcharge = 5% for single phase
+10% for 3 phase
+Excise = 30% of (amount +Surcharge)
+Net = Amount +Surcharge + Excise
+
+Write a block to calculate the bill for each customer. The program should insert the
+Meter no., Units used, Rate, Amount, Surcharge, Excise duty and Net for each
+customer into some other suitable table. Also, at the end, it should insert the total
+Amount, Surcharge, Excise and Net into some other table. 
+
+sol
+===
+
+step 1: creation of table
+---------------------------
+
+create table electricbill
+(
+	Meter_Number Varchar(4) not null primary key,
+	Meter_Type Char(1) check(Meter_Type in('T','S')),
+	Prev_Reading Int(5),
+	Cur_Reading Int(5),
+	Cust_Type Char(1) check(Cust_type in('A','I','C','R')),
+	Last_payment Char(1) check(Last_payment in('Y','N'))
+);
+
+delimiter //
+create procedure bill(p int(5),c int(5),ct char(1), mt char(1))
+begin
+	declare units int(5);
+	declare amt float(7,2);
+	declare rate float(3,1);
+	declare surcharge float(6,2);
+	declare excise float(6,2);
+	declare net float(7,2);
+	
+	set units=c-p;
+	insert into temp values(units,'used_units');
+	
+	if ct='A' then
+		set rate=1;
+	elseif ct='I' then
+		set rate=1.25;
+	elseif ct='C' then
+		set rate=1.50;
+	else
+		set rate=1.30;
+	end if;
+	set amt=rate* units;
+	insert into temp values(amt,'bill_amount');
+	
+	if mt='T' then
+		set surcharge=0.1;
+	else 
+		set surcharge=0.05;
+	insert into temp values(surcharge,'Surcharge');
+	
+	set excise=0.3*(amt+surcharge);
+	insert into temp values(excise,'Excise');
+	
+	set net=amt+surcharge+excise;
+	insert into temp values(net,'Net');
+	end if;	
+end; //
+delimiter ;
+
+step 2: program
+-----------------
+
+delimiter //
+create procedure bill_Details()
+begin
+	declare a varchar(4);
+	declare b char(1);
+	declare c int(5);
+	declare d int(5);
+	declare e char(1);
+	declare f char(1);
+	declare units_used int(5);
+	declare finished int(4)  default 1;
+	declare c1 cursor for select * from electricbill for update;
+	declare continue handler for not found set finished =1;
+
+	open c1;
+	cursor_c1_loop: loop
+		fetch c1 into a,b,c,d;
+		if finished=0 then
+			leave cursor_c1_loop;
+		end if;
+		call bill(c,d,e,b);
+	end loop cursor_c1_loop;
+	close c1;
+			
+end; //
+delimiter ;
