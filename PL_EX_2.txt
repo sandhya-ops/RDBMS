@@ -1,0 +1,56 @@
+1. Select from any table a number and determine whether it is within a given range (for
+example, between 1 and 10).
+sol
+====
+delimiter //
+create procedure frange(s int(4))
+begin
+	if s between 1 and 10 then
+		insert into temp(s,'within range');
+	end if;
+end; //
+delimiter ;
+
+2. Select from any table three positive integers representing the sides of a triangle, and
+determine whether they form a valid triangle. Hint: In a triangle, the sum of any two
+sides must always be greater than the third side.
+sol
+===
+delimiter //
+create procedure vtriangle(a int(4), b int(4),c int(4))
+begin
+	if (a+b)>c then
+		insert into temp values(a,'valid side'),
+		(b,'valid side'),
+		(c,'valid side');
+	else
+		insert into temp(sec) values('invalid');
+	end if;
+end;//
+delimiter ;
+
+3. Check if a given a year is a leap year. The condition is:- year should be (divisible by 4
+and not divisible by 100) or (divisible by 4 and divisible by 400.). The year should be
+Selected from some table.
+sol
+===
+delimiter //
+create procedure leapyrcheck(yr int(4))
+begin
+	if(mod(yr,400)=0) then
+		insert into temp values(yr,'leap');
+	elseif(mod(yr,4)=0) then
+		insert into temp values(yr,'leap');
+	else
+		insert into temp values(yr,'not leap');
+	end if;
+end; //
+delimiter ;
+
+4. Write a program that Selects from any table two character strings. Your program should
+then determine if one character string exists inside another character string. 
+sol
+===
+delimiter //
+create procedure 
+delimiter ;
