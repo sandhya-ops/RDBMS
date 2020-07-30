@@ -1,0 +1,15 @@
+
+sol 1
+=======
+create table cityorders
+select onum, amt, orders.snum, customers.cnum, customers.city 
+from orders, customers 
+where customers.cnum=orders.cnum;
+
+
+sol 2
+=======
+alter table orders add column
+prev int;
+alter table orders add constraint 
+fk_prev foreign key(prev) references orders(onum);
